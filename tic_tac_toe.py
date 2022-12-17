@@ -78,7 +78,7 @@ def evaluate_board(board):
     # check for a tie
     if all(board[i][j] != ' ' for i in range(3) for j in range(3)):
         return 0
-    '''
+    
     # game is still ongoing
     score = 0
     # check rows
@@ -151,8 +151,8 @@ def evaluate_board(board):
 
     # return a score based on who is closer to winning
     return score
-    '''
-    return 0
+    
+    #return 0
 
 
 def get_available_moves(board):
@@ -342,7 +342,7 @@ def main():
       break
     
     # Player O goes next
-    move = minimax(board,8,False)[1]
+    move = minimax(board,3,False)[1]
     make_move(board, move, "O")
     #board = player_move(board, "O")
     print_board(board)
@@ -354,4 +354,6 @@ def main():
     print("Player 'O' Wins!")
   else:
     print("It's A Draw!")
-main()
+
+if __name__ == "__main__":
+  main()
