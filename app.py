@@ -1,4 +1,5 @@
-from tic_tac_toe import initialize_board, minimax
+import random
+from tic_tac_toe import initialize_board, minimax, get_available_moves, decide_next_move
 import tkinter as tk
 from tkinter import messagebox
 
@@ -28,6 +29,11 @@ class TicTacToe:
         self.vs_button = tk.Button(
             self.main_window, text="VS Computer: On", command=self.toggle_vs)
         self.vs_button.grid(row=3, column=1)
+
+        # create the toggle button for computer difficulty
+        self.difficulty_button = tk.Button(
+            self.main_window, text="Difficulty: Normal", command=self.toggle_difficulty)
+        self.difficulty_button.grid(row=3, column=0)
 
         self.x_turn = True
         self.vs_computer = True
@@ -63,7 +69,18 @@ class TicTacToe:
             self.make_computer_move()
 
     def make_computer_move(self):
-        (row, col) = minimax(self.board_to_2Darray(), 4, self.x_turn)[1]
+        row = 0
+        col = 0
+        if self.difficulty_button["text"] == "Difficulty: Easy":
+            (row, col) = random.choice(get_available_moves(self.board_to_2Darray()))
+        elif self.difficulty_button["text"] == "Difficulty: Normal":
+            (row, col) = decide_next_move(self.board_to_2Darray())
+        elif self.difficulty_button["text"] == "Difficulty: Hard":
+            depth = 3
+            (row, col) = minimax(self.board_to_2Darray(), depth, self.x_turn)[1]
+        else:
+            depth = 4
+            (row, col) = minimax(self.board_to_2Darray(), depth, self.x_turn)[1]
 
         # determine which player's turn it is
         player = "X" if self.x_turn else "O"
@@ -131,6 +148,16 @@ class TicTacToe:
         else:
             self.vs_computer = True
             self.vs_button["text"] = "VS Computer: On"
+
+    def toggle_difficulty(self):
+        if self.difficulty_button["text"] == "Difficulty: Easy":
+            self.difficulty_button["text"] = "Difficulty: Normal"
+        elif self.difficulty_button["text"] == "Difficulty: Normal":
+            self.difficulty_button["text"] = "Difficulty: Hard"
+        elif self.difficulty_button["text"] == "Difficulty: Hard":
+            self.difficulty_button["text"] = "Difficulty: Unbeatable"
+        else:
+            self.difficulty_button["text"] = "Difficulty: Easy"
 
 
 # create the game and start the main loop

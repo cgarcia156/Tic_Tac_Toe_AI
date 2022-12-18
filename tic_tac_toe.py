@@ -194,35 +194,26 @@ def minimax(board, depth, is_maximizing):
     if is_maximizing:
         best_score = -float("inf")
         for move in get_available_moves(board):
-            #print(get_available_moves(board))
-            #print_board(board)
-            #print(move)
             board_copy = copy.deepcopy(board)
             new_board = make_move(board_copy, move, "X")
             score = minimax(new_board, depth - 1, False)[0]
             best_score = max(best_score, score)
             if (score == best_score):
               next_move = move
-        #print(best_score, next_move)
         return (best_score,next_move)
 
     # If it's the minimizing player's turn, find the move that minimizes the score
     else:
         best_score = float("inf")
         for move in get_available_moves(board):
-            #print(get_available_moves(board))
-            #print_board(board)
-            #print(move)
             board_copy = copy.deepcopy(board)
             new_board = make_move(board_copy, move, "O")
             score = minimax(new_board, depth - 1, True)[0]
             best_score = min(best_score, score)
             if (score == best_score):
               next_move = move
-        #print(best_score, next_move)
         return (best_score,next_move)
 
-'''
 def decide_next_move(board):
   # Check if the middle space is empty and choose it if it is
   if board[1][1] == " ":
@@ -238,30 +229,6 @@ def decide_next_move(board):
   empty_spaces = [(i, j) for i in range(3) for j in range(3) if board[i][j] == " "]
   return random.choice(empty_spaces)
 
-def decide_next_move(board):
-  # Check if the middle space is empty and choose it if it is
-  if board[1][1] == " ":
-    return (1, 1)
-  
-  # Check if the center space is empty and choose it if it is
-  if board[1][1] == " ":
-    return (1, 1)
-  
-  # Check if any of the corners are empty and choose one at random if they are
-  corners = [(0, 0), (0, 2), (2, 0), (2, 2)]
-  empty_corners = [c for c in corners if board[c[0]][c[1]] == " "]
-  if len(empty_corners) > 0:
-    return random.choice(empty_corners)
-  
-  # Otherwise, choose one of the remaining empty spaces at random
-  empty_spaces = [(i, j) for i in range(3) for j in range(3) if board[i][j] == " "]
-  return random.choice(empty_spaces)
-
-
-def create_board():
-  board = [" " for i in range(9)]
-  return board
-'''
 def initialize_board():
     # Create a 3x3 array of space characters
     board = [        [' ', ' ', ' '],
@@ -270,19 +237,6 @@ def initialize_board():
     ]
     
     return board
-
-'''
-def print_board(board):
-    # Iterate over each row and column in the board
-    for i in range(len(board)):
-        for j in range(len(board[i])):
-            # Print the element at the current position on the board
-            print(board[i][j], end='')
-            
-        # After printing the elements in a row, print a newline character
-        print()
-'''
-
 
 def print_board(board):
   row1 = "| {} | {} | {} |".format(board[0][0], board[0][1], board[0][2])
@@ -294,17 +248,6 @@ def print_board(board):
   print(row3)
   print()
 
-'''
-def player_move(board, player):
-  print("Player {}'s turn.".format(player))
-  index = int(input("Enter the index of the space where you want to place your mark (0-8): "))
-  if board[index] == " ":
-    board[index] = player
-  else:
-    print("That space is already taken! Please choose a different space.")
-    player_move(board, player)
-  return board
-'''
 
 def player_move(board, player):
   # Ask the player to make a move
