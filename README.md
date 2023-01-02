@@ -1,4 +1,4 @@
-# Tic-Tac-Toe
+# Tic-Tac-Toe AI
 
 A Tic-Tac-Toe game implemented in Python using tkinter for the GUI. The game allows the player to choose between playing against a computer or another player. The player can also choose the difficulty level of the computer opponent.
 
